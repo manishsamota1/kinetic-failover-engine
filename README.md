@@ -86,7 +86,7 @@ MONITORING ──→ DEGRADED ──→ FAILING_OVER ──→ FAILED_OVER ─�
 ### 1. Install
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/kinetic-failover-engine.git
+git clone https://github.com/manishsamota1/kinetic-failover-engine.git
 cd kinetic-failover-engine
 npm install
 ```
