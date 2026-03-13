@@ -159,7 +159,7 @@ export class HealthChecker {
 
     // Determine overall health status
     let status;
-    let latencyMs = httpCheck?.latencyMs || 0;
+    const latencyMs = httpCheck?.latencyMs || 0;
 
     if (httpCheck && !httpCheck.healthy) {
       // HTTP check failed → endpoint is down

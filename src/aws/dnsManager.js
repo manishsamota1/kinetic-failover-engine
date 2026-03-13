@@ -65,7 +65,7 @@ export class DnsManager {
    * @returns {Promise<{success: boolean, changeId: string|null, error: string|null}>}
    * @private
    */
-  async _updateDnsRecord(activeDnsName, activeLabel, standbyDnsName, standbyLabel) {
+  async _updateDnsRecord(activeDnsName, activeLabel, _standbyDnsName, _standbyLabel) {
     if (!this.dnsConfig.hostedZoneId || !this.dnsConfig.domainName) {
       const msg = 'Cannot update DNS: hostedZoneId or domainName not configured';
       this.logger.error(msg);

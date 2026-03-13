@@ -11,7 +11,6 @@ import { fileURLToPath } from 'node:url';
 import yaml from 'js-yaml';
 import Ajv from 'ajv';
 import dotenv from 'dotenv';
-import { Defaults } from './constants.js';
 
 // Load .env file if present (no-op if missing)
 dotenv.config();

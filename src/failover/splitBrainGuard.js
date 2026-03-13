@@ -11,7 +11,6 @@ import {
   PutItemCommand,
   GetItemCommand,
   DeleteItemCommand,
-  ScanCommand,
   CreateTableCommand,
   DescribeTableCommand,
 } from '@aws-sdk/client-dynamodb';

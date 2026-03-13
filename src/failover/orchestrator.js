@@ -163,8 +163,6 @@ export class Orchestrator {
     this.tickCount++;
     this.lastTickTime = Date.now();
 
-    const regionToCheck = this.state === EngineState.FAILED_OVER ? 'primary' : this.activeRegion;
-
     // ------ Step 1: Health probe ------
     const probe = await this.healthChecker.runProbe(
       this.state === EngineState.FAILED_OVER ? 'primary' : this.activeRegion

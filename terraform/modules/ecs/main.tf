@@ -157,10 +157,8 @@ resource "aws_ecs_service" "main" {
     container_port   = var.container_port
   }
 
-  deployment_configuration {
-    maximum_percent         = 200
-    minimum_healthy_percent = 100
-  }
+  deployment_maximum_percent         = 200
+  deployment_minimum_healthy_percent = 100
 
   # Allow external changes (our failover engine changes desired_count)
   lifecycle {

@@ -21,12 +21,12 @@ data "aws_availability_zones" "secondary" {
 module "vpc_primary" {
   source = "./modules/vpc"
 
-  project_name   = var.project_name
-  environment    = var.environment
-  region_label   = "primary"
-  vpc_cidr       = var.primary_vpc_cidr
-  az_count       = var.availability_zones_count
-  azs            = slice(data.aws_availability_zones.primary.names, 0, var.availability_zones_count)
+  project_name = var.project_name
+  environment  = var.environment
+  region_label = "primary"
+  vpc_cidr     = var.primary_vpc_cidr
+  az_count     = var.availability_zones_count
+  azs          = slice(data.aws_availability_zones.primary.names, 0, var.availability_zones_count)
 }
 
 module "iam" {
@@ -51,20 +51,20 @@ module "alb_primary" {
 module "ecs_primary" {
   source = "./modules/ecs"
 
-  project_name           = var.project_name
-  environment            = var.environment
-  region_label           = "primary"
-  vpc_id                 = module.vpc_primary.vpc_id
-  private_subnet_ids     = module.vpc_primary.private_subnet_ids
-  container_image        = var.container_image
-  container_port         = var.container_port
-  cpu                    = var.cpu
-  memory                 = var.memory
-  desired_count          = var.desired_count
-  target_group_arn       = module.alb_primary.target_group_arn
-  execution_role_arn     = module.iam.ecs_execution_role_arn
-  task_role_arn          = module.iam.ecs_task_role_arn
-  alb_security_group_id  = module.alb_primary.security_group_id
+  project_name          = var.project_name
+  environment           = var.environment
+  region_label          = "primary"
+  vpc_id                = module.vpc_primary.vpc_id
+  private_subnet_ids    = module.vpc_primary.private_subnet_ids
+  container_image       = var.container_image
+  container_port        = var.container_port
+  cpu                   = var.cpu
+  memory                = var.memory
+  desired_count         = var.desired_count
+  target_group_arn      = module.alb_primary.target_group_arn
+  execution_role_arn    = module.iam.ecs_execution_role_arn
+  task_role_arn         = module.iam.ecs_task_role_arn
+  alb_security_group_id = module.alb_primary.security_group_id
 }
 
 # ==============================================================================
@@ -78,12 +78,12 @@ module "vpc_secondary" {
     aws = aws.secondary
   }
 
-  project_name   = var.project_name
-  environment    = var.environment
-  region_label   = "secondary"
-  vpc_cidr       = var.secondary_vpc_cidr
-  az_count       = var.availability_zones_count
-  azs            = slice(data.aws_availability_zones.secondary.names, 0, var.availability_zones_count)
+  project_name = var.project_name
+  environment  = var.environment
+  region_label = "secondary"
+  vpc_cidr     = var.secondary_vpc_cidr
+  az_count     = var.availability_zones_count
+  azs          = slice(data.aws_availability_zones.secondary.names, 0, var.availability_zones_count)
 }
 
 module "iam_secondary" {
@@ -120,20 +120,20 @@ module "ecs_secondary" {
     aws = aws.secondary
   }
 
-  project_name           = var.project_name
-  environment            = var.environment
-  region_label           = "secondary"
-  vpc_id                 = module.vpc_secondary.vpc_id
-  private_subnet_ids     = module.vpc_secondary.private_subnet_ids
-  container_image        = var.container_image
-  container_port         = var.container_port
-  cpu                    = var.cpu
-  memory                 = var.memory
-  desired_count          = var.secondary_desired_count
-  target_group_arn       = module.alb_secondary.target_group_arn
-  execution_role_arn     = module.iam_secondary.ecs_execution_role_arn
-  task_role_arn          = module.iam_secondary.ecs_task_role_arn
-  alb_security_group_id  = module.alb_secondary.security_group_id
+  project_name          = var.project_name
+  environment           = var.environment
+  region_label          = "secondary"
+  vpc_id                = module.vpc_secondary.vpc_id
+  private_subnet_ids    = module.vpc_secondary.private_subnet_ids
+  container_image       = var.container_image
+  container_port        = var.container_port
+  cpu                   = var.cpu
+  memory                = var.memory
+  desired_count         = var.secondary_desired_count
+  target_group_arn      = module.alb_secondary.target_group_arn
+  execution_role_arn    = module.iam_secondary.ecs_execution_role_arn
+  task_role_arn         = module.iam_secondary.ecs_task_role_arn
+  alb_security_group_id = module.alb_secondary.security_group_id
 }
 
 # ==============================================================================
@@ -145,16 +145,16 @@ module "route53" {
 
   count = var.route53_zone_id != "" ? 1 : 0
 
-  project_name        = var.project_name
-  environment         = var.environment
-  domain_name         = var.domain_name
-  zone_id             = var.route53_zone_id
-  primary_alb_dns     = module.alb_primary.alb_dns_name
-  primary_alb_zone_id = module.alb_primary.alb_zone_id
+  project_name          = var.project_name
+  environment           = var.environment
+  domain_name           = var.domain_name
+  zone_id               = var.route53_zone_id
+  primary_alb_dns       = module.alb_primary.alb_dns_name
+  primary_alb_zone_id   = module.alb_primary.alb_zone_id
   secondary_alb_dns     = module.alb_secondary.alb_dns_name
   secondary_alb_zone_id = module.alb_secondary.alb_zone_id
-  health_check_path   = var.health_check_path
-  container_port      = var.container_port
+  health_check_path     = var.health_check_path
+  container_port        = var.container_port
 }
 
 # ==============================================================================

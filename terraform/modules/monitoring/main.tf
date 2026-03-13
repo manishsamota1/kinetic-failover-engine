@@ -122,10 +122,10 @@ resource "aws_cloudwatch_dashboard" "main" {
         width  = 12
         height = 6
         properties = {
-          title = "ALB Response Time"
+          title   = "ALB Response Time"
           metrics = [["AWS/ApplicationELB", "TargetResponseTime", "LoadBalancer", var.alb_arn_suffix, { stat = "Average" }]]
-          period = 60
-          view   = "timeSeries"
+          period  = 60
+          view    = "timeSeries"
         }
       },
       {
@@ -135,10 +135,10 @@ resource "aws_cloudwatch_dashboard" "main" {
         width  = 12
         height = 6
         properties = {
-          title = "ECS CPU Utilization"
+          title   = "ECS CPU Utilization"
           metrics = [["AWS/ECS", "CPUUtilization", "ClusterName", var.ecs_cluster_name, "ServiceName", var.ecs_service_name, { stat = "Average" }]]
-          period = 60
-          view   = "timeSeries"
+          period  = 60
+          view    = "timeSeries"
         }
       },
       {
@@ -148,10 +148,10 @@ resource "aws_cloudwatch_dashboard" "main" {
         width  = 12
         height = 6
         properties = {
-          title = "ECS Memory Utilization"
+          title   = "ECS Memory Utilization"
           metrics = [["AWS/ECS", "MemoryUtilization", "ClusterName", var.ecs_cluster_name, "ServiceName", var.ecs_service_name, { stat = "Average" }]]
-          period = 60
-          view   = "timeSeries"
+          period  = 60
+          view    = "timeSeries"
         }
       },
       {

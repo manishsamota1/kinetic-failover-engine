@@ -66,7 +66,7 @@ function setupGracefulShutdown() {
     console.error(error.stack);
     try {
       await stopEngine();
-    } catch (_) {
+    } catch {
       // Best effort
     }
     process.exit(1);
@@ -76,7 +76,7 @@ function setupGracefulShutdown() {
     console.error('FATAL: Unhandled promise rejection:', reason);
     try {
       await stopEngine();
-    } catch (_) {
+    } catch {
       // Best effort
     }
     process.exit(1);
