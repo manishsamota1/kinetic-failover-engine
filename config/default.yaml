@@ -1,0 +1,95 @@
+# ==============================================================================
+# Zero-Downtime Kinetic Failover Engine — Default Configuration
+# ==============================================================================
+# Environment variables override these values. See .env.example for the mapping.
+# ==============================================================================
+
+# --- Engine Behavior ---
+engine:
+  # How often the engine probes the primary ALB (milliseconds)
+  healthCheckIntervalMs: 5000
+
+  # Latency (ms) above which the region is considered degraded
+  latencyThresholdMs: 200
+
+  # Number of consecutive failures before triggering failover
+  failureThreshold: 3
+
+  # Minimum time (ms) between failover/failback events to prevent flapping
+  cooldownPeriodMs: 60000
+
+  # Number of latency samples to keep in the sliding window
+  latencyWindowSize: 60
+
+  # If true, the engine logs decisions but does NOT execute failover actions
+  dryRun: false
+
+# --- Primary Region ---
+primary:
+  region: us-east-1
+
+  alb:
+    arn: ""
+    dnsName: ""
+    targetGroupArn: ""
+    healthCheckPath: /health
+    healthCheckTimeoutMs: 5000
+
+  ecs:
+    clusterName: ""
+    serviceName: ""
+    taskDefinition: ""
+
+# --- Secondary Region ---
+secondary:
+  region: eu-west-1
+
+  alb:
+    arn: ""
+    dnsName: ""
+    targetGroupArn: ""
+    healthCheckPath: /health
+    healthCheckTimeoutMs: 5000
+
+  ecs:
+    clusterName: ""
+    serviceName: ""
+    taskDefinition: ""
+
+# --- Route 53 DNS ---
+dns:
+  hostedZoneId: ""
+  domainName: ""
+  ttl: 30
+  # Type of DNS routing policy: "failover" or "weighted"
+  routingPolicy: failover
+
+# --- DynamoDB (Split-Brain Lock) ---
+splitBrain:
+  tableName: kinetic-failover-locks
+  lockTtlSeconds: 120
+
+# --- Alerting ---
+alerting:
+  # Enable/disable each alerting channel
+  sns:
+    enabled: false
+    topicArn: ""
+  slack:
+    enabled: false
+    webhookUrl: ""
+  pagerDuty:
+    enabled: false
+    routingKey: ""
+
+# --- CloudWatch Custom Metrics ---
+cloudwatch:
+  enabled: false
+  namespace: KineticFailoverEngine
+  publishIntervalMs: 60000
+
+# --- Logging ---
+logging:
+  level: info
+  # "json" for structured logs, "pretty" for human-readable
+  format: pretty
